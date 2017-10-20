@@ -51,8 +51,8 @@ public class Term
 				coe = Integer.parseInt(coeStr.substring(1));
 				coe = -coe;
 			}
-			else if (coeStr.charAt(0) == '+')
-				coe = Integer.parseInt(coeStr.substring(1));
+			else if (coeStr.charAt(0) == '+' && !coeStr.equals("x"))
+				coe = Integer.parseInt(coeStr);
 			else
 				coe = Integer.parseInt(coeStr);
 		}

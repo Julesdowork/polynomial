@@ -42,6 +42,8 @@ public class PolynomialTester
 				polyStr = in.nextLine();
 				polyStr = polyStr.replaceAll(" ", "");
 				Polynomial qx = new Polynomial(polyStr);
+				px = px.addPolynomials(qx);
+				System.out.println("New polynomial: " + px.toString());
 			}
 			else if (choice == 2)
 			{

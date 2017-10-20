@@ -23,7 +23,6 @@ public class Polynomial
 	
 	public Polynomial addPolynomials(Polynomial other)
 	{
-		//Polynomial sum = new Polynomial();
 		ListIterator thisIter = terms.listIterator();
 		ListIterator otherIter = other.terms.listIterator();
 		String newPolyString = "";
@@ -41,7 +40,12 @@ public class Polynomial
 					if (sum < 0)
 						newPolyString += "-";
 					else if (sum > 0)
-						newPolyString += Integer.toString(sum);
+					{
+						if (newPolyString.equals(""))
+							newPolyString = Integer.toString(sum);
+						else
+							newPolyString += "+" + Integer.toString(sum);
+					}
 					
 					if (thisTerm.getPower() != 0)
 					{
