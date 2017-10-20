@@ -9,27 +9,104 @@ public class Polynomial
 	private String polyString;
 	private LinkedList terms;
 	
+	public Polynomial()
+	{
+		terms = new LinkedList();
+	}
+	
 	public Polynomial(String aString)
 	{
 		polyString = aString;
-		terms = getTerms(polyString);
+		terms = new LinkedList();
+		getTerms(polyString);
 	}
 	
-	public LinkedList getTerms(String aString)
+	public Polynomial addPolynomials(Polynomial other)
 	{
-		LinkedList list = new LinkedList();
-		int index = 0;
-		int lastIndex = 0;
-		String substring = "";
+		//Polynomial sum = new Polynomial();
+		ListIterator thisIter = terms.listIterator();
+		ListIterator otherIter = other.terms.listIterator();
+		String newPolyString = "";
 		
-		while (index < aString.length())
+		while (thisIter.hasNext())
 		{
-			if (aString.charAt(index) == '+' || aString.charAt(index) == '-')
+			Term thisTerm = (Term) thisIter.next();
+			while (otherIter.hasNext())
 			{
-				substring = aString.substring(lastIndex, index);
-				Term newTerm = Term.getTerm(substring);
+				Term otherTerm = (Term) otherIter.next();
+				if (thisTerm.getPower() == otherTerm.getPower())
+				{
+					int sum =
+						thisTerm.getCoefficient() + otherTerm.getCoefficient();
+					if (sum < 0)
+						newPolyString += "-";
+					else if (sum > 0)
+						newPolyString += Integer.toString(sum);
+					
+					if (thisTerm.getPower() != 0)
+					{
+						if (thisTerm.getPower() == 1)
+							newPolyString += "x";
+						else
+							newPolyString += "x^" + thisTerm.getPower();
+					}
+					break;
+				}
 			}
-			index++;
 		}
+		
+		Polynomial sum = new Polynomial(newPolyString);
+		return sum;
+	}
+	
+	public void getTerms(String aString)
+	{
+		int end = 0;
+		int start = 0;
+		String substring = "";
+		ListIterator iter = terms.listIterator();
+		
+		while (end < aString.length())
+		{
+			if (aString.charAt(end) == '+' || aString.charAt(end) == '-')
+			{
+				if (end == 0)
+				{
+					start = end;
+					end++;
+					while (end < aString.length() && aString.charAt(end) != '+'
+							&& aString.charAt(end) != '-')
+						end++;
+				}
+				substring = aString.substring(start, end);
+				Term newTerm = Term.getTerm(substring);
+				iter.add(newTerm);
+				start = end;
+			}
+			end++;
+		}
+		if (start < aString.length())
+		{
+			substring = aString.substring(start);
+			Term newTerm = Term.getTerm(substring);
+			iter.add(newTerm);
+		}
+	}
+	
+	public String printTerms()
+	{
+		String termStr = "";
+		ListIterator iter = terms.listIterator();
+		while (iter.hasNext())
+		{
+			termStr += iter.next().toString();
+			termStr += " ";
+		}
+		return termStr;
+	}
+	
+	public String toString()
+	{
+		return polyString;
 	}
 }

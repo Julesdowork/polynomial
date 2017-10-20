@@ -45,7 +45,17 @@ public class Term
 			j++;
 		}
 		if (!coeStr.equals(""))
-			coe = Integer.parseInt(coeStr);
+		{
+			if (coeStr.charAt(0) == '-')
+			{
+				coe = Integer.parseInt(coeStr.substring(1));
+				coe = -coe;
+			}
+			else if (coeStr.charAt(0) == '+')
+				coe = Integer.parseInt(coeStr.substring(1));
+			else
+				coe = Integer.parseInt(coeStr);
+		}
 		
 		if (j < aString.length() && Character.isLetter(aString.charAt(j)))
 			pow = 1;
@@ -81,5 +91,14 @@ public class Term
 	public int getPower()
 	{
 		return power;
+	}
+	
+	/**
+	 * Prints a string representation of this term.
+	 * @return the string representation
+	 */
+	public String toString()
+	{
+		return "(" + coefficient + "," + power + ")";
 	}
 }

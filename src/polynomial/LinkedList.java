@@ -57,6 +57,11 @@ public class LinkedList
 		return element;
 	}
 	
+	public ListIterator listIterator()
+	{
+		return new LinkedListIterator();
+	}
+	
 	static class Node
 	{
 		public Object data;
