@@ -21,31 +21,45 @@ public class Term
 		power = pow;
 	}
 	
+//	private static float getDecimalFromFraction(String aString, int loc)
+//	{
+//		String numerator = aString.substring(0, loc);
+//		String denominator = aString.substring(loc + 1);
+//		int num = Integer.parseInt(numerator);
+//		int den = Integer.parseInt(denominator);
+//		return num / den;
+//	}
+	
 	public static Term getTerm(String aString)
 	{
 		int coe = 1;
 		int pow = 0;	// Default values for coefficient and power
+		String coeStr = "";
+		String powStr = "";
 		int i = 0;
 		int j = i;
 		
 		while (j < aString.length() && !Character.isLetter(aString.charAt(j)))
 		{
+			coeStr += aString.charAt(j);
 			j++;
 		}
-		if (i != j)
-			coe = Integer.parseInt(aString.substring(i, j));
+		if (!coeStr.equals(""))
+			coe = Integer.parseInt(coeStr);
 		
-		if (Character.isLetter(aString.charAt(j)))
+		if (j < aString.length() && Character.isLetter(aString.charAt(j)))
+			pow = 1;
+		
+		j++;
+		if (j < aString.length() && aString.charAt(j) == '^')
 		{
 			j++;
-			while (j < aString.length() && aString.charAt(j) == '^')
-			{ 
+			do
+			{
+				powStr += aString.charAt(j);
 				j++;
-				i = j;
-				while (j < aString.length())
-					j++;
-				pow = Integer.parseInt(aString.substring(i, j));
-			}
+			} while (j < aString.length());
+			pow = Integer.parseInt(powStr);
 		}
 	
 		return new Term(coe, pow);
