@@ -7,52 +7,122 @@ import org.junit.jupiter.api.Test;
 class PolynomialTest
 {
 	@Test
-	void test01HighOrderTerm()
+	void test01Term5()
 	{
-		Term term = Term.getTerm("5x^12");
+		Term term = Term.getTerm("5");
 		int coefficient = term.getCoefficient();
 		int power = term.getPower();
 		String actual = "(" + coefficient + "," + power + ")";
-		assertEquals("(5,12)", actual);
+		assertEquals("(5,0)", actual);
 	}
 	
 	@Test
-	void test02LowOrderTerm()
+	void test02Term0()
 	{
-		Term term = Term.getTerm("4x^3");
+		Term term = Term.getTerm("");
 		int coefficient = term.getCoefficient();
 		int power = term.getPower();
 		String actual = "(" + coefficient + "," + power + ")";
-		assertEquals("(4,3)", actual);
+		assertEquals("(0,0)", actual);
 	}
 	
 	@Test
-	void test03OrderOfOne()
+	void test03Term10()
 	{
-		Term term = Term.getTerm("3x");
+		Term term = Term.getTerm("10");
 		int coefficient = term.getCoefficient();
 		int power = term.getPower();
 		String actual = "(" + coefficient + "," + power + ")";
-		assertEquals("(3,1)", actual);
+		assertEquals("(10,0)", actual);
 	}
 	
 	@Test
-	void test04Constant()
+	void test04TermMinus7()
 	{
-		Term term = Term.getTerm("2");
+		Term term = Term.getTerm("-7");
 		int coefficient = term.getCoefficient();
 		int power = term.getPower();
 		String actual = "(" + coefficient + "," + power + ")";
-		assertEquals("(2,0)", actual);
+		assertEquals("(-7,0)", actual);
 	}
 	
 	@Test
-	void test05NoFactor()
+	void test05TermX()
 	{
-		Term term = Term.getTerm("x^4");
+		Term term = Term.getTerm("x");
 		int coefficient = term.getCoefficient();
 		int power = term.getPower();
 		String actual = "(" + coefficient + "," + power + ")";
-		assertEquals("(1,4)", actual);
+		assertEquals("(1,1)", actual);
+	}
+	
+	@Test
+	void test06TermMinusX()
+	{
+		Term term = Term.getTerm("-x");
+		int coefficient = term.getCoefficient();
+		int power = term.getPower();
+		String actual = "(" + coefficient + "," + power + ")";
+		assertEquals("(-1,1)", actual);
+	}
+	
+	@Test
+	void test07TermPlusX()
+	{
+		Term term = Term.getTerm("+x");
+		int coefficient = term.getCoefficient();
+		int power = term.getPower();
+		String actual = "(" + coefficient + "," + power + ")";
+		assertEquals("(1,1)", actual);
+	}
+	
+	@Test
+	void test08Term2X()
+	{
+		Term term = Term.getTerm("2x");
+		int coefficient = term.getCoefficient();
+		int power = term.getPower();
+		String actual = "(" + coefficient + "," + power + ")";
+		assertEquals("(2,1)", actual);
+	}
+	
+	@Test
+	void test09TermMinus2X()
+	{
+		Term term = Term.getTerm("-2x");
+		int coefficient = term.getCoefficient();
+		int power = term.getPower();
+		String actual = "(" + coefficient + "," + power + ")";
+		assertEquals("(-2,1)", actual);
+	}
+	
+	@Test
+	void test09TermPlus2X()
+	{
+		Term term = Term.getTerm("+2x");
+		int coefficient = term.getCoefficient();
+		int power = term.getPower();
+		String actual = "(" + coefficient + "," + power + ")";
+		assertEquals("(2,1)", actual);
+	}
+	
+	@Test
+	void test10Term9X2()
+	{
+		Term term = Term.getTerm("9x^2");
+		int coefficient = term.getCoefficient();
+		int power = term.getPower();
+		String actual = "(" + coefficient + "," + power + ")";
+		assertEquals("(9,2)", actual);
+	}
+	
+	@Test
+	void test11Term4X10()
+	{
+		Term term = Term.getTerm("4x^10");
+		int coefficient = term.getCoefficient();
+		int power = term.getPower();
+		String actual = "(" + coefficient + "," + power + ")";
+		assertEquals("(4,10)", actual);
 	}
 }

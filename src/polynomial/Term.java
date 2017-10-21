@@ -33,45 +33,43 @@ public class Term
 	public static Term getTerm(String aString)
 	{
 		int coe = 1;
-		int pow = 0;	// Default values for coefficient and power
+		int pow = 0;
 		String coeStr = "";
 		String powStr = "";
-		int i = 0;
-		int j = i;
 		
-		while (j < aString.length() && !Character.isLetter(aString.charAt(j)))
+		if (aString.length() == 0)
+			return new Term(0, 0);
+		
+		int i = 0;
+		while (i < aString.length() && !Character.isLetter(aString.charAt(i)))
 		{
-			coeStr += aString.charAt(j);
-			j++;
+			coeStr += aString.charAt(i);
+			i++;
 		}
-		if (!coeStr.equals(""))
+		if (coeStr.length() > 0 && !coeStr.equals("+"))
 		{
-			if (coeStr.charAt(0) == '-')
-			{
-				coe = Integer.parseInt(coeStr.substring(1));
-				coe = -coe;
-			}
-			else if (coeStr.charAt(0) == '+' && !coeStr.equals("x"))
+			if (coeStr.equals("-"))
+				coe = -1;
+			else if (coeStr.charAt(0) != '+')
 				coe = Integer.parseInt(coeStr);
 			else
-				coe = Integer.parseInt(coeStr);
+				coe = Integer.parseInt(coeStr.substring(1));
 		}
 		
-		if (j < aString.length() && Character.isLetter(aString.charAt(j)))
-			pow = 1;
-		
-		j++;
-		if (j < aString.length() && aString.charAt(j) == '^')
+		if (i < aString.length() && Character.isLetter(aString.charAt(i)))
 		{
-			j++;
-			do
-			{
-				powStr += aString.charAt(j);
-				j++;
-			} while (j < aString.length());
-			pow = Integer.parseInt(powStr);
+			pow = 1;
+			i += 2;
 		}
-	
+		
+		while (i < aString.length())
+		{
+			powStr += aString.charAt(i);
+			i++;
+		}
+		if (powStr.length() > 0)
+			pow = Integer.parseInt(powStr);
+		
 		return new Term(coe, pow);
 	}
 	
@@ -82,6 +80,15 @@ public class Term
 	public int getCoefficient()
 	{
 		return coefficient;
+	}
+	
+	/**
+	 * Multiplies the coefficient (or the whole term really) by -1.
+	 * @return the negative of the coefficient
+	 */
+	public int getNegative()
+	{
+		return -coefficient;
 	}
 	
 	/**

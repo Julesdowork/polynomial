@@ -37,12 +37,26 @@ public class PolynomialTester
 			
 			if (choice == 1)
 			{
+				System.out.println("\t1. Add");
+				System.out.println("\t2. Subtract");
+				System.out.print("Choose an operation: ");
+				int opChoice = in.nextInt();
+				while (opChoice < 1 || opChoice > 2)
+				{
+					System.out.println("That's not a valid choice. Please try "
+							+ "again.");
+					System.out.print("Choose an operation: ");
+					opChoice = in.nextInt();
+				}
 				in.nextLine();
 				System.out.println("Enter new polynomial below (ignore spaces):");
 				polyStr = in.nextLine();
 				polyStr = polyStr.replaceAll(" ", "");
 				Polynomial qx = new Polynomial(polyStr);
-				px = px.addPolynomials(qx);
+				if (opChoice == 1)
+					px = px.addPolynomials(qx);
+				else
+					px = px.subtractPolynomials(qx);
 				System.out.println("New polynomial: " + px.toString());
 			}
 			else if (choice == 2)

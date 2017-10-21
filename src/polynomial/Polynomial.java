@@ -38,14 +38,25 @@ public class Polynomial
 					int sum =
 						thisTerm.getCoefficient() + otherTerm.getCoefficient();
 					if (sum < 0)
-						newPolyString += "-";
+					{
+						if (sum == -1)
+							newPolyString += "-";
+						else
+							newPolyString += Integer.toString(sum);
+					}
 					else if (sum > 0)
 					{
 						if (newPolyString.equals(""))
 							newPolyString = Integer.toString(sum);
+						else if (sum == 1 && thisTerm.getPower() == 0)
+							newPolyString += "+1";
+						else if (sum == 1)
+							newPolyString += "+";
 						else
 							newPolyString += "+" + Integer.toString(sum);
 					}
+					else
+						break;
 					
 					if (thisTerm.getPower() != 0)
 					{
@@ -107,6 +118,48 @@ public class Polynomial
 			termStr += " ";
 		}
 		return termStr;
+	}
+	
+	public Polynomial subtractPolynomials(Polynomial other)
+	{
+		ListIterator thisIter = terms.listIterator();
+		ListIterator otherIter = other.terms.listIterator();
+		String newPolyString = "";
+		
+		while (thisIter.hasNext())
+		{
+			Term thisTerm = (Term) thisIter.next();
+			while (otherIter.hasNext())
+			{
+				Term otherTerm = (Term) otherIter.next();
+				if (thisTerm.getPower() == otherTerm.getPower())
+				{
+					int sum =
+						thisTerm.getCoefficient() - otherTerm.getNegative();
+					if (sum < 0)
+						newPolyString += "-";
+					else if (sum > 0)
+					{
+						if (newPolyString.equals(""))
+							newPolyString = Integer.toString(sum);
+						else
+							newPolyString += "+" + Integer.toString(sum);
+					}
+					
+					if (thisTerm.getPower() != 0)
+					{
+						if (thisTerm.getPower() == 1)
+							newPolyString += "x";
+						else
+							newPolyString += "x^" + thisTerm.getPower();
+					}
+					break;
+				}
+			}
+		}
+		
+		Polynomial diff = new Polynomial(newPolyString);
+		return diff;
 	}
 	
 	public String toString()
